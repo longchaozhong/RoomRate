@@ -24,4 +24,8 @@ const exists = param => {
     });
 };
 
-export default {add, update, exists}
+const query = () => {
+    return DB.query('select * from community');
+};
+
+export default {add, update, exists, query}

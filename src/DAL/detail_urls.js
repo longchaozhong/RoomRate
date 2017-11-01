@@ -6,7 +6,7 @@ import log4js from 'log4js';
 
 const logger = log4js.getLogger();
 
-const tableName = 'room';
+const tableName = 'detail_urls';
 const add = data => {
     return DB.execute(`insert into ${tableName} set ?`, [data]);
 };

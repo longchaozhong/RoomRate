@@ -33,7 +33,7 @@ const parseIndex = () => {
                 total: page.totalPage
             });
             for (let pageNum = 1; pageNum <= page.totalPage; pageNum++) {
-                yield collectDetailURL(URL.resolve(urls.BASIC, `p${pageNum}y4l2l3p2p1/`)).then(result => {
+                yield collectDetailURL(URL.resolve(urls.BASIC, `pg${pageNum}y4l2l3p2p1/`), pageNum).then(result => {
                     detailURLs = detailURLs.concat(result);
                     pageBar.tick();
                 });
@@ -47,7 +47,6 @@ const parseIndex = () => {
                 total: detailURLs.length
             });
             for (let i = 0; i < detailURLs.length; i++) {
-
                 yield saveDetailInfo(detailURLs[i]).then(() => {
                     bar.tick();
                 });
@@ -64,14 +63,19 @@ const parseIndex = () => {
 /**
  * 收集列表每页房源的详情页URL
  * @param pageURL
+ * @param pageNum
  * @returns {Promise.<Array>}
  */
-const collectDetailURL = pageURL => {
+const collectDetailURL = (pageURL, pageNum) => {
     return Utils.load(pageURL).then(html => {
         let result = [];
         let $ = cheerio.load(html);
         $('li .title a', '.sellListContent').each((index, ele) => {
-            result.push($(ele).attr('href'));
+            result.push({
+                page: pageNum,
+                index: index,
+                href: $(ele).attr('href')
+            });
         });
         return result;
     }).catch(error => {
@@ -87,7 +91,7 @@ const collectDetailURL = pageURL => {
 const saveDetailInfo = detailURL => {
 
     return co(function*() {
-        let html = yield Utils.load(detailURL).catch(error => {
+        let html = yield Utils.load(detailURL.href).catch(error => {
             logger.error(error);
             throw error;
         });
@@ -109,7 +113,7 @@ const saveDetailInfo = detailURL => {
             $(ele).find('.label').remove();
         });
         let detailInfo = {
-            id: detailURL,
+            id: `${$transaction.eq(8).text().trim()}-${detailURL.page}-${detailURL.index}`,
             title: $titleWrapper.find('.main').text().trim(),
             sub_title: $titleWrapper.find('.sub').text().trim(),
 
@@ -146,7 +150,7 @@ const saveDetailInfo = detailURL => {
             address_area: $aroundInfo.find('.areaName a').eq(0).text().trim(),
             address_street: $aroundInfo.find('.areaName a').eq(3).text().trim(),
             community: communityURL,
-            url: detailURL
+            url: detailURL.href
         };
 
         let dynamicData = {
@@ -158,9 +162,9 @@ const saveDetailInfo = detailURL => {
             room_id: detailInfo.id
         };
 
-        const rows = yield room.exists({code: detailInfo.code});
+        const rows = yield room.exists({id: detailInfo.id});
         if (rows) {
-            yield room.update(detailInfo, {id: rows[0]});
+            yield room.update(detailInfo, {id: detailInfo.id});
         } else {
             yield saveCommunityInfo(communityURL);
             yield room.add(detailInfo);
@@ -194,10 +198,10 @@ const saveCommunityInfo = url => {
             url: absoluteURL
         };
 
-        const exists = yield community.exists({id: url});
+        const exists = yield community.exists({id: detail.id});
 
         if (exists) {
-            yield community.update(detail, {id: url});
+            yield community.update(detail, {id: detail.id});
         } else {
             yield community.add(detail);
         }

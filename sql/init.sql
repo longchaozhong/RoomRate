@@ -81,3 +81,14 @@ CREATE TABLE `room_rate`.`community` (
     PRIMARY KEY (`id`),
     UNIQUE INDEX `id_UNIQUE` (`id` ASC)
 );
+
+
+DROP TABLE IF exists `detail_urls`;
+CREATE TABLE `room_rate`.`detail_urls` (
+    `id` INT NOT NULL AUTO_INCREMENT,
+    `href` VARCHAR(200) NOT NULL COMMENT '网页地址',
+    `page` VARCHAR(10) NOT NULL COMMENT '网页地址',
+	`index` VARCHAR(10) NOT NULL COMMENT '网页地址',
+    PRIMARY KEY (`id`),
+    UNIQUE INDEX `id_UNIQUE` (`id` ASC)
+);
