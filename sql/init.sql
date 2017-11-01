@@ -3,9 +3,9 @@ USE room_rate;
 DROP TABLE IF exists `room`;	
 CREATE TABLE `room_rate`.`room` (
     `id` VARCHAR(200) NOT NULL,
-    `title` VARCHAR(100) NOT NULL COMMENT '房源名称',
-    `sub_title` VARCHAR(100) NOT NULL COMMENT '房源名称',
-    `house_type` VARCHAR(45) NOT NULL COMMENT '房型：“三室一厅”、“一室一厅”……',
+    `title` VARCHAR(100)  NULL COMMENT '房源名称',
+    `sub_title` VARCHAR(100)  NULL COMMENT '房源简介',
+    `house_type` VARCHAR(45)  NULL COMMENT '房型：“三室一厅”、“一室一厅”……',
     `floor` VARCHAR(45) NULL COMMENT '所在楼层',
     `building_area` VARCHAR(45) NULL COMMENT '建筑面积',
     `room_area` VARCHAR(45) NULL COMMENT '套内面积',
@@ -26,17 +26,17 @@ CREATE TABLE `room_rate`.`room` (
     `mortgage` VARCHAR(45) NULL COMMENT '抵押信息',
     `code` VARCHAR(45) NULL COMMENT '链家系统编码',
 
-    `five_years` INT(2) NOT NULL DEFAULT 0 COMMENT '是否满五年',
-    `two_years` INT(2) NOT NULL DEFAULT 0 COMMENT '是否满两年',
-    `near_subway` INT(2) NOT NULL DEFAULT 0 COMMENT '是否近地铁',
+    `five_years` INT(2)  NULL DEFAULT 0 COMMENT '是否满五年',
+    `two_years` INT(2)  NULL DEFAULT 0 COMMENT '是否满两年',
+    `near_subway` INT(2)  NULL DEFAULT 0 COMMENT '是否近地铁',
     `see_free` INT(2) NOT NULL DEFAULT 0 COMMENT '是否随时看房',
 
     `selling_point` VARCHAR(400) NULL  COMMENT '核心卖点',
     `transportation` VARCHAR(400) NULL  COMMENT '交通出行',
 
-    `address_area` VARCHAR(100) NOT NULL COMMENT '房源地址-所在区',
-    `address_street` VARCHAR(100) NOT NULL COMMENT '房源地址-所在街道',
-    `community` VARCHAR(45) NOT NULL COMMENT '房源所在小区ID',
+    `address_area` VARCHAR(100)  NULL COMMENT '房源地址-所在区',
+    `address_street` VARCHAR(100)  NULL COMMENT '房源地址-所在街道',
+    `community` VARCHAR(45)  NULL COMMENT '房源所在小区ID',
     `url` VARCHAR(200) NOT NULL COMMENT '网页地址',
 
     `update_time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
@@ -53,8 +53,8 @@ CREATE TABLE `room_rate`.`dynamic_data` (
     `id` INT NOT NULL AUTO_INCREMENT,
     `follow_count` INT COMMENT '关注人数',
     `cart_count` INT COMMENT '总带看人数',
-    `price_total` VARCHAR(45) NOT NULL COMMENT '总价',
-    `price_unit` VARCHAR(45) NOT NULL COMMENT '单价',
+    `price_total` VARCHAR(45)  NULL COMMENT '总价',
+    `price_unit` VARCHAR(45)  NULL COMMENT '单价',
     `room_id` VARCHAR(200) NULL COMMENT '对应的房产',
     `recently_visit` VARCHAR(5) NULL COMMENT '最近七天看房次数',
 
@@ -66,8 +66,8 @@ CREATE TABLE `room_rate`.`dynamic_data` (
 DROP TABLE IF exists `community`;
 CREATE TABLE `room_rate`.`community` (
     `id` VARCHAR(100) NOT NULL,
-    `name` VARCHAR(200) NOT NULL COMMENT '小区名称',
-    `address` VARCHAR(200) NOT NULL COMMENT '地址',
+    `name` VARCHAR(200)  NULL COMMENT '小区名称',
+    `address` VARCHAR(200)  NULL COMMENT '地址',
     `decade` VARCHAR(45) NULL COMMENT '建筑年代',
     `type` VARCHAR(45) NULL COMMENT '建筑类型',
     `condo_fee` VARCHAR(45) NULL COMMENT '物业费用',

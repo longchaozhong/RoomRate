@@ -1,7 +1,9 @@
-select * from room order by code;
-select  distinct room_id from dynamic_data order by room_id;
-SELECT @@sql_mode;
+use room_rate;
 
-SET sql_mode='NO_BACKSLASH_ESCAPES';
+select `code`,count(*) as count from room group by `code` having count>1;
 
-select * from detail_urls  order by href;
+select count(*) as total ,count(distinct code) as code from room order by id;
+
+select * from room where code = 'U170298666786';
+
+select count(*) from dynamic_data;

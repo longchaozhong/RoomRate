@@ -91,6 +91,11 @@ const collectDetailURL = (pageURL, pageNum) => {
 const saveDetailInfo = detailURL => {
 
     return co(function*() {
+        const exists = yield room.exists({url: detailURL.href});
+        if(exists){
+            return true;
+        }
+
         let html = yield Utils.load(detailURL.href).catch(error => {
             logger.error(error);
             throw error;
@@ -103,8 +108,8 @@ const saveDetailInfo = detailURL => {
         let $intrducetion = $('#introduction');//基本信息部分
         let $baseInfo = $intrducetion.find('.base .content li');//基础信息
         let $transaction = $intrducetion.find('.transaction .content li');//交易信息
-        let $tags = $intrducetion.find('.tags');//房源标签
-        let $baseattribute = $intrducetion.find('.baseattribute');//
+        let $tags = $('.introContent.showbasemore .tags');//房源标签
+        let $baseattribute = $('.baseattribute');//
         let communityURL = $aroundInfo.find('.communityName .info').attr('href');
         $baseInfo.each((index, ele) => {
             $(ele).find('.label').remove();
@@ -113,7 +118,7 @@ const saveDetailInfo = detailURL => {
             $(ele).find('.label').remove();
         });
         let detailInfo = {
-            id: `${$transaction.eq(8).text().trim()}-${detailURL.page}-${detailURL.index}`,
+            id: `${detailURL.page}-${detailURL.index + 1}-${$transaction.eq(8).text().trim()}`,
             title: $titleWrapper.find('.main').text().trim(),
             sub_title: $titleWrapper.find('.sub').text().trim(),
 
@@ -139,16 +144,16 @@ const saveDetailInfo = detailURL => {
             mortgage: $transaction.eq(6).text().trim(),
             code: $transaction.eq(8).text().trim(),
 
-            two_years: ($tags.find('.tage.is_near_subway').length || $tags.find('.tage.taxfree').length) ? 1 : 0,
-            five_years: $tags.find('.tage.taxfree').length ? 1 : 0,
-            near_subway: $tags.find('.tage.taxfree').length ? 1 : 0,
-            see_free: $tags.find('.tage.is_see_free').length ? 1 : 0,
+            two_years: ($tags.find('.tag.five').length || $tags.find('.tag.taxfree').length) ? 1 : 0,
+            five_years: $tags.find('.tag.taxfree').length ? 1 : 0,
+            near_subway: $tags.find('.tag.is_near_subway').length ? 1 : 0,
+            see_free: $tags.find('.tag.is_see_free').length ? 1 : 0,
 
             selling_point: $baseattribute.eq(0).find('.content').text().trim(),
             transportation: $baseattribute.eq(1).find('.content').text().trim(),
 
             address_area: $aroundInfo.find('.areaName a').eq(0).text().trim(),
-            address_street: $aroundInfo.find('.areaName a').eq(3).text().trim(),
+            address_street: $aroundInfo.find('.areaName a').eq(1).text().trim(),
             community: communityURL,
             url: detailURL.href
         };
@@ -166,11 +171,10 @@ const saveDetailInfo = detailURL => {
         if (rows) {
             yield room.update(detailInfo, {id: detailInfo.id});
         } else {
-            yield saveCommunityInfo(communityURL);
             yield room.add(detailInfo);
         }
-
-        yield dynamic_data.add(dynamicData);
+        yield saveCommunityInfo(communityURL);
+        return dynamic_data.add(dynamicData);
 
     });
 };
@@ -207,6 +211,9 @@ const saveCommunityInfo = url => {
         }
 
         return true;
+    }).catch((e) => {
+        logger.error(`获取${url}页面信息报错${e.message}`);
+        throw e;
     });
 };
 
