@@ -1,0 +1,36 @@
+{
+  "appenders": {
+    "file": {
+      "type": "file",
+      "filename": "logs/log.log",
+      "layout": {
+        "type": "colored"
+      }
+    },
+    "datefile": {
+      "type": "datefile",
+      "filename": "logs/daily.log"
+    },
+    "console": {
+      "type": "console",
+      "layout": {
+        "type": "pattern",
+        "pattern": "%[[%d{yyyy/MM/dd hh:mm:ss}](%c-%p)%m%"
+      }
+    }
+  },
+  "categories": {
+    "default": {
+      "appenders": [
+        "console"
+      ],
+      "level": "debug"
+    },
+    "spider": {
+      "appenders": [
+        "datefile"
+      ],
+      "level": "info"
+    }
+  }
+}
