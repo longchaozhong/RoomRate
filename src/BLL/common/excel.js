@@ -14,7 +14,7 @@ class WorkBook {
 
         wkData.forEach(wk => {
             this.workbook.SheetNames.push(wk.name);
-            this.workbook.Sheets[wk.name] = XLSX.utils.json_to_sheet(wk.data);
+            this.workbook.Sheets[wk.name] = XLSX.utils.aoa_to_sheet(wk.data);
         });
     }
 

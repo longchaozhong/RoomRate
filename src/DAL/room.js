@@ -25,7 +25,7 @@ const exists = param => {
     });
 };
 const query = () => {
-    return DB.query(`select * from ${tableName}`);
+    return DB.query(`select distinct * from ${tableName} as r right join dynamic_data as d on r.id = d.room_id`);
 };
 
 export default {add, update, exists, query}
