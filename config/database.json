@@ -3,6 +3,7 @@
   "port":"3306",
   "user": "root",
   "password": "Dragon",
-  "database": "room_rate",
+  "database": "room_rate_dev",
+  "charset":"utf8",
   "debug":false
 }

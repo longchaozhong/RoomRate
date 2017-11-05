@@ -1,7 +1,7 @@
-USE room_rate;
+USE room_rate_dev;
 
 DROP TABLE IF exists `room`;	
-CREATE TABLE `room_rate`.`room` (
+CREATE TABLE `room` (
     `id` VARCHAR(200) NOT NULL,
     `title` VARCHAR(100)  NULL COMMENT '房源名称',
     `sub_title` VARCHAR(100)  NULL COMMENT '房源简介',
@@ -49,7 +49,7 @@ CREATE TABLE `room_rate`.`room` (
  动态数据，每次爬取数据都新增
 */
 DROP TABLE IF exists `dynamic_data`;	
-CREATE TABLE `room_rate`.`dynamic_data` (
+CREATE TABLE `dynamic_data` (
     `id` INT NOT NULL AUTO_INCREMENT,
     `follow_count` INT COMMENT '关注人数',
     `cart_count` INT COMMENT '总带看人数',
@@ -64,7 +64,7 @@ CREATE TABLE `room_rate`.`dynamic_data` (
 );
 
 DROP TABLE IF exists `community`;
-CREATE TABLE `room_rate`.`community` (
+CREATE TABLE `community` (
     `id` VARCHAR(100) NOT NULL,
     `name` VARCHAR(200)  NULL COMMENT '小区名称',
     `address` VARCHAR(200)  NULL COMMENT '地址',
@@ -84,7 +84,7 @@ CREATE TABLE `room_rate`.`community` (
 
 
 DROP TABLE IF exists `detail_urls`;
-CREATE TABLE `room_rate`.`detail_urls` (
+CREATE TABLE `detail_urls` (
     `id` INT NOT NULL AUTO_INCREMENT,
     `href` VARCHAR(200) NOT NULL COMMENT '网页地址',
     `page` VARCHAR(10) NOT NULL COMMENT '网页地址',
@@ -92,3 +92,8 @@ CREATE TABLE `room_rate`.`detail_urls` (
     PRIMARY KEY (`id`),
     UNIQUE INDEX `id_UNIQUE` (`id` ASC)
 );
+
+alter table room CHARACTER SET utf8;
+alter table community CHARACTER SET utf8;
+alter table dynamic_data CHARACTER SET utf8;
+alter table detail_urls CHARACTER SET utf8;

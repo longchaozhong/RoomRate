@@ -17,10 +17,7 @@ console.info(gen.next());
 
 function p1() {
     return new Promise((resolve, reject) => {
-        setTimeout(() => {
-            console.info('p1');
-            reject();
-        }, 1000);
+       resolve();
     });
 }
 function p2() {
@@ -32,13 +29,19 @@ function p2() {
     });
 }
 
-co(function* (){
-    yield p1().catch(()=>{
-        console.info('in catch');
-        throw new Error('test');
-    });
-    yield p2();
+Promise.all([
+    new Promise((resolve,reject)=>{
+        reject();
+    }).catch(()=>{
+        return 'error'
+    }),
+    new Promise((resolve,reject)=>{
+        resolve('success');
+    }).catch(()=>{
+        //
+    })
+]).then(result=>{
+    console.info(result);
 }).catch(()=>{
-    console.info('out catch');
+    console.info('failed');
 });
-

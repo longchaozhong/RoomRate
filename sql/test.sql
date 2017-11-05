@@ -9,4 +9,4 @@ select * from room where code = 'U170298666786';
 select count(*) from dynamic_data;
 
 
-select * from room right join dynamic_data on room.id = dynamic_data.room_id limit 0,10;
+select distinct * from room right join dynamic_data on room.id = dynamic_data.room_id limit 0,10;

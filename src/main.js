@@ -11,18 +11,16 @@ import room from './DAL/room';
 log4js.configure(require('../config/log4js.json'));
 let logger = log4js.getLogger();
 
-/*const startTime = new Date().getTime();
- parseHTML.parseIndex().then(() => {
- logger.info(`下载完毕，耗时${(new Date().getTime() - startTime) / 1000}s`);
- }).catch((e) => {
+const startTime = new Date().getTime();
+parseHTML.parseIndex(() => {
+    logger.info(`下载完毕，耗时${(new Date().getTime() - startTime) / 1000}s`);
+    process.exit();
+});
+
+
+/*
+ exportExcel.exportExcel().catch((e) => {
  logger.error(e);
  }).finally(() => {
  process.exit();
  });*/
-
-
-exportExcel.exportExcel().catch((e) => {
-    logger.error(e);
-}).finally(() => {
-    process.exit();
-});
