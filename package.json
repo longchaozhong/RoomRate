@@ -5,13 +5,15 @@
   "main": "index.js",
   "scripts": {
     "dev": "./node_modules/.bin/babel-node ./src/main.js",
-    "test": "./node_modules/.bin/babel-node ./test/test.js"
+    "test": "./node_modules/.bin/babel-node ./test/test.js",
+    "web": "./node_modules/.bin/babel-node ./web/index.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "cheerio": "^1.0.0-rc.2",
     "co": "^4.6.0",
+    "koa": "^2.3.0",
     "log4js": "^2.3.10",
     "moment": "^2.19.1",
     "mysql": "^2.15.0",

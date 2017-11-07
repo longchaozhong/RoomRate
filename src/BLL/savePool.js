@@ -26,7 +26,7 @@ class Pool {
             total: totalTask
         });
         _this.emitter = new MyEmitter();
-        _this.maxActiveTask = 50;
+        _this.maxActiveTask = 100;
         _this.waitArr = [];
         _this.activeTaskCount = 0;
         _this.finishedCount = 0;
@@ -37,13 +37,16 @@ class Pool {
             } else {
                 _this.activeTaskCount++;
                 saveDetail.saveDetailInfo(url).then(communityURL => {
-                    return saveDetail.saveCommunityInfo(communityURL);
-                }).catch(error => {
-                    logger.error(`${error.message}`);
-                }).finally(() => {
                     _this.finishedCount++;
-                    _this.activeTaskCount--;
                     _this.bar.tick();
+                    return saveDetail.saveCommunityInfo(communityURL).catch(e => {
+                        logger.error(`保存小区(${communityURL})失败：${e.message}`);
+                    });
+                }).catch(error => {
+                    _this.waitArr.push(url);//保存失败，转入待下载序列
+                    logger.error(`保存房源(${url})失败：${error.message}`);
+                }).finally(() => {
+                    _this.activeTaskCount--;
                     if (_this.activeTaskCount < _this.maxActiveTask && _this.waitArr.length) {
                         _this.emitter.emit('newTask', _this.waitArr.pop());
                     }

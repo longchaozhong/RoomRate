@@ -2,7 +2,6 @@
  * Created by lcz on 2017/10/27.
  */
 import MySQL from 'mysql2/promise';
-import co from 'co';
 const DBConfig = require('../../config/database.json');
 
 const pool = MySQL.createPool(DBConfig);
@@ -13,21 +12,19 @@ const pool = MySQL.createPool(DBConfig);
  * @param param
  * @returns {Promise}
  */
-const execute = (sql, param = []) => {
-    return co(function*() {
-        let connection = yield pool.getConnection();
-        yield connection.beginTransaction();
-        let results = yield connection.query(sql, param).catch((error) => {
-            connection && connection.release();
-            throw error;
-        });
-        yield connection.commit().catch((error) => {
-            connection && connection.release();
-            throw error;
-        });
-        connection.release();
-        return results[0];
+const execute = async(sql, param = []) => {
+    let connection = await pool.getConnection();
+    await connection.beginTransaction();
+    let results = await connection.query(sql, param).catch((error) => {
+        connection && connection.release();
+        throw error;
     });
+    await connection.commit().catch((error) => {
+        connection && connection.release();
+        throw error;
+    });
+    connection.release();
+    return results[0];
 };
 
 /**
@@ -36,14 +33,12 @@ const execute = (sql, param = []) => {
  * @param params
  * @returns {Promise}
  */
-const query = (sql, params = []) => {
-    return co(function*() {
-        let connection = yield pool.getConnection();
-        let results = yield connection.query(sql, params).finally(() => {
-            connection && connection.release();
-        });
-        return results[0];
+const query = async(sql, params = []) => {
+    let connection = await pool.getConnection();
+    let results = await connection.query(sql, params).finally(() => {
+        connection && connection.release();
     });
+    return results[0];
 };
 
 export default {
