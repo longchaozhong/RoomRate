@@ -18,6 +18,7 @@ const parseIndex = (finishedCallback) => {
         //获取分页信息
         let page = $('.page-box.house-lst-page-box').attr('page-data');
         let totalRoom = $('.resultDes .total span').text().trim() * 1;
+        let actuallyTotal = 0;
         page = JSON.parse(page);
 
         const savePool = new SavePool(totalRoom, finishedCallback);
@@ -27,6 +28,7 @@ const parseIndex = (finishedCallback) => {
                 promiseArr.push(
                     saveDetail.collectDetailURL(URL.resolve(urls.BASIC, `pg${pageNum}y4l2l3p2p1/`), pageNum)
                         .then(result => {
+                            actuallyTotal += result.length;
                             result.forEach(detailURL => {
                                 savePool.addTask(detailURL);
                             });
@@ -34,7 +36,10 @@ const parseIndex = (finishedCallback) => {
                 );
             }
             return promiseArr;
-        })());
+        })()).then((result) => {
+            logger.info(`实际下载爬取房源数为：${actuallyTotal}`);
+            return result;
+        });
 
     }).catch(error => {
         logger.error(`收集详情页URL过程中出错${error.message}`);

@@ -43,8 +43,8 @@ class Pool {
                         logger.error(`保存小区(${communityURL})失败：${e.message}`);
                     });
                 }).catch(error => {
-                    _this.waitArr.push(url);//保存失败，转入待下载序列
-                    logger.error(`保存房源(${url})失败：${error.message}`);
+                    _this.addTask(url);//保存失败，转入待下载序列
+                    logger.error(`保存房源(${url.href})失败：${error.message}`);
                 }).finally(() => {
                     _this.activeTaskCount--;
                     if (_this.activeTaskCount < _this.maxActiveTask && _this.waitArr.length) {

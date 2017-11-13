@@ -1,0 +1,205 @@
+{
+  "list": {
+    "urls": {
+      "type": "Array",
+      "selector": ".sellListContent li .title a",
+      "value": "href",
+      "items": {
+        "href": {
+          "type": "String",
+          "value": "href"
+        },
+        "page": {
+          "type": "Constant",
+          "value": ""
+        },
+        "index": {
+          "type": "Constant",
+          "value": ""
+        }
+      }
+    }
+  },
+  "roomDetail": {
+    "id": "",
+    "title": {
+      "type": "String",
+      "selector": ".title-wrapper .main",
+      "value": "text"
+    },
+    "sub_title": {
+      "type": "String",
+      "selector": ".title-wrapper .sub",
+      "value": "text"
+    },
+    "house_type": {
+      "type": "String",
+      "selector": "#introduction .base .content li",
+      "eq": 0,
+      "value": "text"
+    },
+    "floor": {
+      "type": "String",
+      "selector": "#introduction .base .content li",
+      "eq": 1,
+      "value": "text"
+    },
+    "building_area": {
+      "type": "String",
+      "selector": "#introduction .base .content li",
+      "eq": 2,
+      "value": "text"
+    },
+    "room_structure": {
+      "type": "String",
+      "selector": "#introduction .base .content li",
+      "eq": 3,
+      "value": "text"
+    },
+    "room_area": {
+      "type": "String",
+      "selector": "#introduction .base .content li",
+      "eq": 4,
+      "value": "text"
+    },
+    "building_type": {
+      "type": "String",
+      "selector": "#introduction .base .content li",
+      "eq": 5,
+      "value": "text"
+    },
+    "room_direction": {
+      "type": "String",
+      "selector": "#introduction .base .content li",
+      "eq": 6,
+      "value": "text"
+    },
+    "building_structure": {
+      "type": "String",
+      "selector": "#introduction .base .content li",
+      "eq": 7,
+      "value": "text"
+    },
+    "decoration": {
+      "type": "String",
+      "selector": "#introduction .base .content li",
+      "eq": 8,
+      "value": "text"
+    },
+    "elevator_rate": {
+      "type": "String",
+      "selector": "#introduction .base .content li",
+      "eq": 9,
+      "value": "text"
+    },
+    "elevator": {
+      "type": "String",
+      "selector": "#introduction .base .content li",
+      "eq": 10,
+      "value": "text"
+    },
+    "serviceable_life": {
+      "type": "String",
+      "selector": "#introduction .base .content li",
+      "eq": 11,
+      "value": "text"
+    },
+    "publish_time": {
+      "type": "String",
+      "selector": "#introduction .transaction .content li",
+      "eq": 0,
+      "value": "text"
+    },
+    "transact_type": {
+      "type": "String",
+      "selector": "#introduction .transaction .content li",
+      "eq": 1,
+      "value": "text"
+    },
+    "last_transact_time": {
+      "type": "String",
+      "selector": "#introduction .transaction .content li",
+      "eq": 2,
+      "value": "text"
+    },
+    "house_use_way": {
+      "type": "String",
+      "selector": "#introduction .transaction .content li",
+      "eq": 3,
+      "value": "text"
+    },
+    "hold_duration": {
+      "type": "String",
+      "selector": "#introduction .transaction .content li",
+      "eq": 4,
+      "value": "text"
+    },
+    "owner": {
+      "type": "String",
+      "selector": "#introduction .transaction .content li",
+      "eq": 5,
+      "value": "text"
+    },
+    "mortgage": {
+      "type": "String",
+      "selector": "#introduction .transaction .content li",
+      "eq": 6,
+      "value": "text"
+    },
+    "code": {
+      "type": "String",
+      "selector": "#introduction .transaction .content li",
+      "eq": 8,
+      "value": "text"
+    },
+    "two_years": {
+      "type": "Bit",
+      "selector": ".introContent.showbasemore .tags .tag.taxfree,.introContent.showbasemore .tags .tag.five",
+      "value": "length"
+    },
+    "five_years": {
+      "type": "Bit",
+      "selector": ".introContent.showbasemore .tags .tag.five",
+      "value": "length"
+    },
+    "near_subway": {
+      "type": "Bit",
+      "selector": ".introContent.showbasemore .tags .tag.is_near_subway",
+      "value": "length"
+    },
+    "see_free": {
+      "type": "Bit",
+      "selector": ".introContent.showbasemore .tags .tag.is_see_free",
+      "value": "length"
+    },
+    "selling_point": {
+      "type": "String",
+      "selector": ".baseattribute .content",
+      "eq": 0,
+      "value": "text"
+    },
+    "transportation": {
+      "type": "String",
+      "selector": ".baseattribute .content",
+      "eq": 1,
+      "value": "text"
+    },
+    "address_area": {
+      "type": "String",
+      "selector": ".aroundInfo .areaName a",
+      "eq": 0,
+      "value": "text"
+    },
+    "address_street": {
+      "type": "String",
+      "selector": ".aroundInfo .areaName a",
+      "eq": 1,
+      "value": "text"
+    },
+    "community": {
+      "type": "String",
+      "selector": ".aroundInfo .communityName .info",
+      "value": "href"
+    }
+  }
+}

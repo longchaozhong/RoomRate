@@ -112,9 +112,10 @@ const saveDetailInfo = async detailURL => {
         room_id: detailInfo.id
     };
 
-    const rows = await room.exists({id: detailInfo.id});
+    const rows = await room.exists({code: detailInfo.code});
     if (rows) {
-        await room.update(detailInfo, {id: detailInfo.id});
+        delete detailInfo.id;
+        await room.update(detailInfo, {code: detailInfo.code});
     } else {
         await room.add(detailInfo);
     }
@@ -149,7 +150,9 @@ const saveCommunityInfo = async url => {
     const exists = await community.exists({id: detail.id});
 
     if (exists) {
-        await community.update(detail, {id: detail.id});
+        const id = detail.id;
+        delete detail.id;
+        await community.update(detail, {id});
     } else {
         await community.add(detail);
     }

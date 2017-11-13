@@ -32,6 +32,50 @@ const load = url => {
 
 };
 
+const parseData = ($, rules) => {
+    let result = {};
+    for (let key in rules) {
+        if (rules.hasOwnProperty(key)) {
+            const rule = rules[key];
+            let $dom = $(rule.selector);
+            let value;
+            if (rule.eq !== undefined) {
+                $dom = $dom.eq(rule.eq);
+            }
+            switch (rule.type) {
+                case 'Array':
+                    let arr = [];
+                    $dom.each((index, ele) => {
+                        arr.push(_getValue($(ele), rule.value));
+                    });
+                    break;
+                case 'String':
+                    value = _getValue($dom, rule.value);
+                    result[key] = value || rule.default || '';
+                    break;
+                case 'Bit':
+                    value = _getValue($dom, rule.value);
+                    result[key] = value ? 1 : 0;
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+    return result;
+};
+
+const _getValue = ($dom, value) => {
+    switch (value) {
+        case 'text':
+            return $dom.text().trim();
+        case 'length':
+            return $dom.length;
+        default:
+            return $dom.attr(value);
+    }
+};
+
 export default {
-    load
+    load, parseData
 }
