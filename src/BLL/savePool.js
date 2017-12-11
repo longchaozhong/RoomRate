@@ -44,7 +44,7 @@ class Pool {
                     });
                 }).catch(error => {
                     _this.addTask(url);//保存失败，转入待下载序列
-                    logger.error(`保存房源(${url.href})失败：${error.message}`);
+                    logger.error(`保存房源(${url.page}-${url.index}:${url.href})失败：${error.message}`);
                 }).finally(() => {
                     _this.activeTaskCount--;
                     if (_this.activeTaskCount < _this.maxActiveTask && _this.waitArr.length) {

@@ -1,4 +1,4 @@
-USE room_rate_dev;
+USE room_rate;
 
 DROP TABLE IF exists `room`;	
 CREATE TABLE `room` (

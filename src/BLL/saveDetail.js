@@ -63,7 +63,7 @@ const saveDetailInfo = async detailURL => {
         $(ele).find('.label').remove();
     });
     let detailInfo = {
-        id: `${detailURL.page}-${detailURL.index + 1}-${$transaction.eq(8).text().trim()}`,
+        id: $transaction.eq(8).text().trim(),
         title: $titleWrapper.find('.main').text().trim(),
         sub_title: $titleWrapper.find('.sub').text().trim(),
 
@@ -112,7 +112,7 @@ const saveDetailInfo = async detailURL => {
         room_id: detailInfo.id
     };
 
-    const rows = await room.exists({code: detailInfo.code});
+    const rows = await room.exists({id: detailInfo.id});
     if (rows) {
         delete detailInfo.id;
         await room.update(detailInfo, {code: detailInfo.code});

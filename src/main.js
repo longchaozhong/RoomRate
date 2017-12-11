@@ -23,9 +23,8 @@ parseHTML.parseIndex(() => {
 });
 
 
-/*
- exportExcel.exportExcel().catch((e) => {
- logger.error(e);
- }).finally(() => {
- process.exit();
- });*/
+/*exportExcel.exportExcel().catch((e) => {
+    logger.error(e);
+}).finally(() => {
+    process.exit();
+});*/

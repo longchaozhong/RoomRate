@@ -12,7 +12,7 @@ import WorkBook from './common/excel';
 const logger = log4js.getLogger();
 
 const exportExcel = async() => {
-    let dataArr = await [room.query(), community.query(), dynamic_data.query()];
+    let dataArr = await Promise.all([room.query(), community.query(), dynamic_data.query()]);
     const roomHeader = [
         'ID(忽略)',
         '房源名称',
@@ -101,7 +101,7 @@ const exportExcel = async() => {
         {name: '房源基本信息', data: [roomHeader, ...roomData]},
         {name: '小区信息', data: [communityHeader, ...communityData]}
     ]);
-    excel.writeFile(`export/房源数据${moment().format('YYYY-MM-DD HH:mm:ss')}.xlsx`);
+    excel.writeFile(`export/房源数据${moment().format('YYYY-MM-DD')}.xlsx`);
     return true;
 };
 
