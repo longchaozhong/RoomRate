@@ -1,0 +1,16 @@
+<html>
+<head>
+    <title>webpack 2 demo</title>
+    <% for(var index = 0; index < htmlWebpackPlugin.files.css.length; index++){ %>
+    <link rel="stylesheet" type="text/css" href="<%= htmlWebpackPlugin.files.css[index] %>">
+    <% } %>
+</head>
+<body>
+<div id="root">
+    <%= JSON.stringify(htmlWebpackPlugin) %>
+</div>
+<% for(var index = 0; index < htmlWebpackPlugin.files.js.length; index++){ %>
+<script type="text/javascript" src="<%= htmlWebpackPlugin.files.js[index] %>"></script>
+<% } %>
+</body>
+</html>

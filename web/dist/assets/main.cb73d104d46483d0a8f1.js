@@ -1,0 +1,1 @@
+webpackJsonp([1],{"49e5":function(e,t,l){"use strict";function n(e){return e&&e.__esModule?e:{default:e}}var u=l("GiK3"),o=n(u);n(l("O27J")).default.render(o.default.createElement("h1",null,"Hello, world!"),document.getElementById("root"))}},["49e5"]);
