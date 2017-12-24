@@ -5,13 +5,13 @@ let ManifestPlugin = require('webpack-manifest-plugin');
 let ChunkManifestPlugin = require('chunk-manifest-webpack-plugin');
 let ExtractTextPlugin = require("extract-text-webpack-plugin");
 
-
+const devConfig = require('./config/devConfig.json');
 module.exports = {
     entry: {
         main: [
-            'react-hot-loader/patch',
-            'webpack-hot-middleware/client?reload=true&path=http://127.0.0.1:3000/__webpack_hmr',
-            './web/src/HelloWord.js'
+            'react-hot-loader/patch',//
+            `webpack-hot-middleware/client?reload=true&path=${devConfig.url}:${devConfig.port}${devConfig.hmrPath}`,//HMR客户端程序
+            './web/src/index.js'
         ]
     },
 
@@ -66,7 +66,6 @@ module.exports = {
         new webpack.optimize.CommonsChunkPlugin({
             name: 'common', // Specify the common bundle's name.
             minChunks: function (module) {
-                // this assumes your vendor imports exist in the node_modules directory
                 return module.context && module.context.indexOf('node_modules') !== -1;
             }
         }),

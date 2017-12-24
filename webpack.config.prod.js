@@ -8,7 +8,7 @@ let ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 module.exports = {
     entry: {
-        main: './web/src/HelloWord.js'
+        main: './web/src/index.js'
     },
     output: {
         filename: '[name].[chunkhash].js',//[chunkhash]是依据文件内容生成，与文件内容一一对应,开发环境不建议使用，会增加编译时间
@@ -37,7 +37,7 @@ module.exports = {
                 ]
             },
             {
-                test: /\.js$/,
+                test: /\.(js|jsx)$/,
                 exclude: /node_modules/,
                 use: ['babel-loader']
             }
