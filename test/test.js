@@ -1,12 +1,29 @@
-let buffer = new ArrayBuffer(16);
-let int32view = new Int32Array(buffer);
-let int16view = new Int16Array(buffer);
-for (let i = 0; i < int32view.length; i++) {
-    int32view[i] = i * 2;
-}
+import {createStore} from 'redux';
 
-for(let val of int16view){
-    console.info(val);
-}
-console.info(int32view.length);
-console.info(int16view.length);
+const reducers = (state = [], action) => {
+    switch (action.type) {
+        case 'ADD':
+            return [...state, action.param];
+        case 'DELETE':
+            return state.filter(item => {
+                return item.id !== action.id;
+            });
+        case 'TOGGLE':
+            return state.filter(item => {
+                if (item.id === action.id) {
+                    item.done = !item.done;
+                }
+                return item;
+            });
+        default:
+            return state;
+    }
+};
+
+
+let store = createStore(reducers);
+
+store.subscribe(() => {
+
+});
+

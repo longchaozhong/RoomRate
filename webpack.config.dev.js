@@ -11,12 +11,12 @@ module.exports = {
         main: [
             'react-hot-loader/patch',//
             `webpack-hot-middleware/client?reload=true&path=${devConfig.url}:${devConfig.port}${devConfig.hmrPath}`,//HMR客户端程序
-            './web/src/index.js'
+            './web/src/js/index.js'
         ]
     },
 
     output: {
-        filename: '[name].[hash].js',
+        filename: '[name].js',
         path: path.resolve(__dirname, 'web/dev/assets'),
         publicPath: '/'
     },
